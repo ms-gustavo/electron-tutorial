@@ -1,6 +1,5 @@
 // Main Process
-const { app, BrowserWindow, Notification } = require("electron");
-const path = require("path");
+const { app, BrowserWindow } = require("electron");
 
 function createWindow() {
   // BrowserWindow <-- Renderer Process
@@ -9,7 +8,9 @@ function createWindow() {
     height: 600,
     backgroundColor: "white",
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: false,
+      // is a feature that ensures that both, your preload scripts and
+      // Electron internal logic tun in separated context
       contextIsolation: false,
     },
   });
@@ -18,17 +19,7 @@ function createWindow() {
   win.webContents.openDevTools();
 }
 
-app.whenReady().then(() => {
-  createWindow();
-  // const notification = new Notification({
-  //   title: "Hello World",
-  //   body: "My test message",
-  // });
-  // notification.show();
-  const parsed = path.parse("/home/user/dir/file.txt");
-  console.log(parsed.base);
-  console.log(parsed.ext);
-});
+app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
