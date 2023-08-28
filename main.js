@@ -32,3 +32,6 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+// Webpack -> is a module builder and the main purpose is to bundle JS files for usage in the browser
+// Babel -> is a JS compiler. Get a high level JS code and refactore it into a lower lever JS
