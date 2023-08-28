@@ -1,0 +1,14 @@
+{
+  "name": "react-electron",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Gustavo Maia",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^26.1.0"
+  }
+}
