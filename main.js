@@ -11,8 +11,6 @@ function createWindow() {
     backgroundColor: "white",
     webPreferences: {
       nodeIntegration: false,
-      // is a feature that ensures that both, your preload scripts and
-      // Electron internal logic tun in separated context
       contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
