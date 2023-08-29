@@ -1,7 +1,9 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-ReactDOM.render(
-  <h1>I am React App!</h1>,
-  document.getElementById("electronChat")
-);
+const rootElement = document.getElementById("electronChat");
+const root = ReactDOM.createRoot(rootElement);
+
+// Use root to render your app
+root.render(<App />);
