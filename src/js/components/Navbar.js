@@ -1,7 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 export default function Navbar() {
   const navigate = useNavigate();
+  const message = useSelector((state) => state.message);
+  console.log(message);
   return (
     <div className="chat-navbar">
       <nav className="chat-navbar-inner">
