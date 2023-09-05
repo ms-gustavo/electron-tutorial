@@ -1,6 +1,6 @@
 import React from "react";
 import ChatUsersLists from "../components/ChatUsersList";
-import { ViewTitle } from "../components/shared/ViewTitle";
+import ViewTitle from "../components/shared/ViewTitle";
 import ChatMessagesList from "../components/ChatMessagesList";
 
 export default function Chat() {
