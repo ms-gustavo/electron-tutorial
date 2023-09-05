@@ -5,6 +5,7 @@ import Home from "./views/Home";
 import Settings from "./views/Settings";
 import Login from "./views/Login";
 import Register from "./views/Register";
+import Chat from "./views/Chat";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/chat" element={<Chat />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </div>
