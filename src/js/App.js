@@ -10,7 +10,7 @@ import Login from "./views/Login";
 import Register from "./views/Register";
 import Chat from "./views/Chat";
 
-import initStore from "./store";
+import initStore from "./redux/store";
 const store = initStore();
 export default function App() {
   return (

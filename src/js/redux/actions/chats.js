@@ -1,4 +1,4 @@
-import * as api from "../api/chats";
+import * as api from "../../api/chats";
 
 export const fetchChats = () => (dispatch) => {
   api.fetchChats().then((chats) =>
