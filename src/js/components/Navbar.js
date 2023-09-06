@@ -29,13 +29,13 @@ export default function Navbar() {
         <div className="chat-navbar-inner-right">
           <span className="logged-in-user">Hi User</span>
           <button
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/")}
             className="btn btn-outline-danger ml-2"
           >
             Logout
           </button>
           <button
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             className="btn btn-outline-success ml-2"
           >
             Login

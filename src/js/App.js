@@ -7,7 +7,6 @@ import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
 import Login from "./views/Login";
-import Register from "./views/Register";
 import Chat from "./views/Chat";
 
 import initStore from "./redux/store";
@@ -20,10 +19,9 @@ export default function App() {
         <div className="content-wrapper">
           <Routes>
             <Route path="/settings" element={<Settings />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             <Route path="/chat/:id" element={<Chat />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Login />} />
           </Routes>
         </div>
       </Router>
