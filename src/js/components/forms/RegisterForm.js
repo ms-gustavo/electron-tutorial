@@ -1,16 +1,25 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
   return (
     <>
-      <form onSubmit={() => {}} className="centered-container-form">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="centered-container-form"
+      >
         <div className="header">Create an account</div>
         <div className="form-container">
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
+              {...register("email", {
+                required: "Required",
+              })}
               type="email"
               className="form-control"
               name="email"
@@ -24,6 +33,9 @@ const RegisterForm = () => {
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
+              {...register("username", {
+                required: "Required",
+              })}
               type="text"
               name="username"
               className="form-control"
@@ -34,6 +46,7 @@ const RegisterForm = () => {
           <div className="form-group">
             <label htmlFor="avatar">Avatar</label>
             <input
+              {...register("avatar")}
               type="text"
               name="avatar"
               className="form-control"
@@ -44,6 +57,9 @@ const RegisterForm = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
+              {...register("password", {
+                required: "Required",
+              })}
               name="password"
               type="password"
               className="form-control"

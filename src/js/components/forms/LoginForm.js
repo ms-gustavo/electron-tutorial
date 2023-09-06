@@ -1,17 +1,27 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
-      <form onSubmit={() => {}} className="centered-container-form">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="centered-container-form"
+      >
         <div className="header">Welcome here!</div>
         <div className="subheader">Login and chat with other people!</div>
         <div className="form-container">
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
+              {...register("email", {
+                required: "Required",
+              })}
               type="email"
               className="form-control"
               id="email"
@@ -25,6 +35,9 @@ const LoginForm = () => {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
+              {...register("password", {
+                required: "Required",
+              })}
               type="password"
               name="password"
               className="form-control"
