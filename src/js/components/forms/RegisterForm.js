@@ -1,10 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { register as registerUser } from "../../redux/actions/auth";
 
 const RegisterForm = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const dispatch = useDispatch();
+  const onSubmit = (registerData) => {
+    dispatch(registerUser(registerData));
   };
   return (
     <>
@@ -33,9 +36,7 @@ const RegisterForm = () => {
           <div className="form-group">
             <label htmlFor="username">Username</label>
             <input
-              {...register("username", {
-                required: "Required",
-              })}
+              {...register("username")}
               type="text"
               name="username"
               className="form-control"
