@@ -11,11 +11,9 @@ export const listenToAuthChanges = () => (dispatch) => {
   dispatch({ type: "AUTH_ON_INIT" });
   api.onAuthStateChanges((authUser) => {
     if (authUser) {
-      dispatch({ type: "AUTH_ON_SUCCESS" });
-      console.log(`authenticated`);
+      dispatch({ type: "AUTH_ON_SUCCESS", user: authUser });
     } else {
       dispatch({ type: "AUTH_ON_ERROR" });
-      console.log(`not authenticated`);
     }
   });
 };

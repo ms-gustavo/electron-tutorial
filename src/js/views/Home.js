@@ -11,7 +11,7 @@ export default function Home() {
   const chats = useSelector(({ chats }) => chats.items);
   useEffect(() => {
     dispatch(fetchChats());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="row no-gutters fh">
