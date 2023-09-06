@@ -1,12 +1,19 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import { createUserProfile } from "../helpers/createUserProfile";
 
-export async function register({ email, password }) {
+export async function register({ email, password, username, avatar }) {
   try {
     const { user } = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    return user;
+    await createUserProfile({
+      uid: user.uid,
+      username,
+      email,
+      avatar,
+      joinedChats: [],
+    });
   } catch (error) {
     return Promise.reject(error.message);
   }
