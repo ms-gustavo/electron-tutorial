@@ -6,7 +6,7 @@ import { MemoryRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
-import Login from "./views/Login";
+import Welcome from "./views/Welcome";
 import Chat from "./views/Chat";
 
 import initStore from "./redux/store";
@@ -21,7 +21,7 @@ export default function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/chat/:id" element={<Chat />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Welcome />} />
           </Routes>
         </div>
       </Router>

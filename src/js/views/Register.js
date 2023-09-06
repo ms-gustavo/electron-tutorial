@@ -8,17 +8,6 @@ const Register = () => {
     <div className="centered-view">
       <div className="centered-container">
         <RegisterForm />
-        <small className="form-text text-muted mt-2">
-          Already registered?
-          <span
-            onClick={() => {
-              navigate("/");
-            }}
-            className="btn-link ml-2"
-          >
-            Login
-          </span>
-        </small>
       </div>
     </div>
   );
