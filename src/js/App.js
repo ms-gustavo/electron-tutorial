@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Provider } from "react-redux";
 
@@ -10,8 +10,13 @@ import Welcome from "./views/Welcome";
 import Chat from "./views/Chat";
 
 import initStore from "./redux/store";
+import { listenToAuthChanges } from "./redux/actions/auth";
 const store = initStore();
 export default function App() {
+  useEffect(() => {
+    store.dispatch(listenToAuthChanges());
+  }, []);
+
   return (
     <Provider store={store}>
       <Router>
