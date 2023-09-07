@@ -7,6 +7,9 @@ export const register = (formData) => (dispatch) =>
     });
   });
 
+export const logout = () => (dispatch) =>
+  api.logout().then(() => dispatch({ type: "AUTH_LOGOUT_SUCCESS" }));
+
 export const listenToAuthChanges = () => (dispatch) => {
   dispatch({ type: "AUTH_ON_INIT" });
   api.onAuthStateChanges((authUser) => {
