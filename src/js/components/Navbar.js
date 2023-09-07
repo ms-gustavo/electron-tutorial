@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../api/auth";
+import { logout } from "../redux/actions/auth";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -17,12 +17,14 @@ export default function Navbar() {
           >
             Back
           </button>
-          <button
-            onClick={() => navigate("/")}
-            className="btn btn-outline-primary ml-2"
-          >
-            Dashboard
-          </button>
+          {user && (
+            <button
+              onClick={() => navigate("/")}
+              className="btn btn-outline-primary ml-2"
+            >
+              Dashboard
+            </button>
+          )}
           <button
             onClick={() => navigate("/settings")}
             className="btn btn-outline-success ml-2"
@@ -32,16 +34,19 @@ export default function Navbar() {
         </div>
         <div className="chat-navbar-inner-right">
           <span className="logged-in-user">Hi User</span>
-          <button
-            onClick={() => navigate("/")}
-            className="btn btn-outline-success ml-2"
-          >
-            Login
-          </button>
+          {!user && (
+            <button
+              onClick={() => navigate("/")}
+              className="btn btn-outline-success ml-2"
+            >
+              Login
+            </button>
+          )}
           {user && (
             <button
-              onClick={() => {
-                dispatch(logout());
+              onClick={async () => {
+                await dispatch(logout());
+                navigate("/");
               }}
               className="btn btn-outline-danger ml-2"
             >

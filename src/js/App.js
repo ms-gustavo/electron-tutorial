@@ -11,6 +11,7 @@ import Chat from "./views/Chat";
 
 import initStore from "./redux/store";
 import { listenToAuthChanges } from "./redux/actions/auth";
+import RegisterForm from "./components/forms/RegisterForm";
 const store = initStore();
 export default function App() {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/chat/:id" element={<Chat />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/register" element={<RegisterForm />} />
             <Route path="/" element={<Welcome />} />
           </Routes>
         </div>

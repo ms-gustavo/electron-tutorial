@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 import AvailableChatsList from "../components/AvailableChatsList";
 import ViewTitle from "../components/shared/ViewTitle";
 import JoinedChatsList from "../components/JoinedChatsList";
@@ -8,7 +8,15 @@ import { fetchChats } from "../redux/actions/chats";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(({ auth }) => auth.user);
   const chats = useSelector(({ chats }) => chats.items);
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user]);
+
   useEffect(() => {
     dispatch(fetchChats());
   }, []);
