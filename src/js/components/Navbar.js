@@ -33,7 +33,12 @@ export default function Navbar() {
           </button>
         </div>
         <div className="chat-navbar-inner-right">
-          <span className="logged-in-user">Hi User</span>
+          {user && (
+            <>
+              <img className="avatar mr-2" src={user.avatar}></img>
+              <span className="logged-in-user">Hi {user.username}</span>
+            </>
+          )}
           {!user && (
             <button
               onClick={() => navigate("/")}
