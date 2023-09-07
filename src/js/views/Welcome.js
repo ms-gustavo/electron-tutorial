@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import LoginForm from "../components/forms/LoginForm";
 import RegisterForm from "../components/forms/RegisterForm";
 import { useNavigate } from "react-router-dom";
+import LoadingView from "../components/shared/LoadingView";
 
 const Welcome = () => {
   const [isLoginView, setIsLoginView] = useState(true);
@@ -12,18 +13,15 @@ const Welcome = () => {
   const optInText = isLoginView
     ? ["Not registered yet?", "Register"]
     : ["Already registered?", "Login"];
-
-  useEffect(() => {
-    if (isChecking) {
-      <h1>Loading...</h1>;
-    }
-  }, [isChecking]);
-
   useEffect(() => {
     if (user) {
       navigate("/home");
     }
   }, [user]);
+
+  if (isChecking) {
+    return <LoadingView />;
+  }
 
   return (
     <div className="centered-view">

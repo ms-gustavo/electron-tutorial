@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../redux/actions/auth";
+import { logoutUser } from "../redux/actions/auth";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ export default function Navbar() {
           {user && (
             <button
               onClick={async () => {
-                await dispatch(logout());
+                await dispatch(logoutUser());
                 navigate("/");
               }}
               className="btn btn-outline-danger ml-2"
