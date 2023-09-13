@@ -5,9 +5,9 @@ import { fetchChats } from "../redux/actions/chats";
 import AvailableChatsList from "../components/AvailableChatsList";
 import ViewTitle from "../components/shared/ViewTitle";
 import JoinedChatsList from "../components/JoinedChatsList";
-import BaseLayout from "../layouts/Base";
+import { withBaseLayout } from "../layouts/Base";
 
-export default function Home() {
+function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(({ auth }) => auth.user);
@@ -23,16 +23,16 @@ export default function Home() {
   }, []);
 
   return (
-    <BaseLayout>
-      <div className="row no-gutters fh">
-        <div className="col-3 fh">
-          <JoinedChatsList chats={chats} />
-        </div>
-        <div className="col-9 fh">
-          <ViewTitle text="Choose your channel" />
-          <AvailableChatsList chats={chats} />
-        </div>
+    <div className="row no-gutters fh">
+      <div className="col-3 fh">
+        <JoinedChatsList chats={chats} />
       </div>
-    </BaseLayout>
+      <div className="col-9 fh">
+        <ViewTitle text="Choose your channel" />
+        <AvailableChatsList chats={chats} />
+      </div>
+    </div>
   );
 }
+
+export default withBaseLayout(Home);
