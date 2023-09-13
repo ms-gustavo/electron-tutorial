@@ -9,6 +9,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const error = useSelector(({ auth }) => auth.login.error);
   const isChecking = useSelector(({ auth }) => auth.login.isChecking);
+
   const onSubmit = (data) => {
     dispatch(loginUser(data));
   };

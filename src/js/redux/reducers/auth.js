@@ -3,14 +3,14 @@ import { createErrorReducer, createIsFetchingReducer } from "./common";
 
 function createLoginReducer() {
   return combineReducers({
-    isCheking: createIsFetchingReducer("AUTH_LOGIN"),
+    isChecking: createIsFetchingReducer("AUTH_LOGIN"),
     error: createErrorReducer("AUTH_LOGIN"),
   });
 }
 
 function createRegisterReducer() {
   return combineReducers({
-    isCheking: createIsFetchingReducer("AUTH_REGISTER"),
+    isChecking: createIsFetchingReducer("AUTH_REGISTER"),
     error: createErrorReducer("AUTH_REGISTER"),
   });
 }
