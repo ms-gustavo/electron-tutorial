@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import { listenToAuthChanges } from "./redux/actions/auth";
 import StoreProvider from "./redux/store/StoreProvider";
-import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
 import Welcome from "./views/Welcome";
@@ -39,7 +38,6 @@ function ChatApp() {
 
   return (
     <Router>
-      <Navbar />
       <ContentWrapper>
         <Routes>
           <Route

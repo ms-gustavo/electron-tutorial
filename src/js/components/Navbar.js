@@ -2,8 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../redux/actions/auth";
+import BackButton from "./shared/BackButton";
 
-export default function Navbar() {
+export default function Navbar({ canGoBack }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(({ auth }) => auth.user);
@@ -11,20 +12,7 @@ export default function Navbar() {
     <div className="chat-navbar">
       <nav className="chat-navbar-inner">
         <div className="chat-navbar-inner-left">
-          <button
-            onClick={() => navigate(-1)}
-            className="btn btn-outline-warning"
-          >
-            Back
-          </button>
-          {user && (
-            <button
-              onClick={() => navigate("/")}
-              className="btn btn-outline-primary ml-2"
-            >
-              Dashboard
-            </button>
-          )}
+          {canGoBack && <BackButton />}
           <button
             onClick={() => navigate("/settings")}
             className="btn btn-outline-success ml-2"
@@ -38,14 +26,6 @@ export default function Navbar() {
               <img className="avatar mr-2" src={user.avatar}></img>
               <span className="logged-in-user">Hi {user.username}</span>
             </>
-          )}
-          {!user && (
-            <button
-              onClick={() => navigate("/")}
-              className="btn btn-outline-success ml-2"
-            >
-              Login
-            </button>
           )}
           {user && (
             <button

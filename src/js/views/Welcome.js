@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import LoginForm from "../components/forms/LoginForm";
 import RegisterForm from "../components/forms/RegisterForm";
-import { useNavigate } from "react-router-dom";
 import LoadingView from "../components/shared/LoadingView";
 
 const Welcome = () => {
