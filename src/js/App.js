@@ -13,6 +13,7 @@ import Settings from "./views/Settings";
 import Welcome from "./views/Welcome";
 import Chat from "./views/Chat";
 import LoadingView from "./components/shared/LoadingView";
+import { listenToConnectionChanges } from "./redux/actions/app";
 
 function AuthRoute({ children }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -28,19 +29,13 @@ function ChatApp() {
   const dispatch = useDispatch();
   const isChecking = useSelector(({ auth }) => auth.isChecking);
 
-  const alertOnlineStatus = () => {
-    alert(navigator.onLine ? "online" : "offline");
-  };
-
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
-    window.addEventListener("online", alertOnlineStatus);
-    window.addEventListener("offline", alertOnlineStatus);
+    const unsubFromConnection = dispatch(listenToConnectionChanges());
 
     return () => {
       unsubFromAuth();
-      window.removeEventListener("online", alertOnlineStatus);
-      window.removeEventListener("offline", alertOnlineStatus);
+      unsubFromConnection();
     };
   }, [dispatch]);
 
