@@ -6,6 +6,7 @@ import AvailableChatsList from "../components/AvailableChatsList";
 import ViewTitle from "../components/shared/ViewTitle";
 import JoinedChatsList from "../components/JoinedChatsList";
 import { withBaseLayout } from "../layouts/Base";
+import notifications from "../utils/notifications";
 
 function Home() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function Home() {
   }, [user]);
 
   useEffect(() => {
+    notifications.setup();
     dispatch(fetchChats());
   }, []);
 
