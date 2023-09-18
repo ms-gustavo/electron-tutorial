@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { createChats } from "../../redux/actions/chats";
 
 const ChatCreateForm = () => {
+  const [chatCreated, setChatCreated] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(({ auth }) => auth.user);
   const { register, handleSubmit } = useForm();
 
+  useEffect(() => {
+    if (chatCreated) {
+      navigate("/home");
+    }
+  }, [chatCreated, navigate]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(createChats(data, user.uid)).then((_) => setChatCreated(true));
   };
 
   return (

@@ -5,3 +5,9 @@ const extracSnapshotData = (snapshot) =>
 
 export const fetchChats = () =>
   db.collection("chats").get().then(extracSnapshotData);
+
+export const createChat = (chatData) =>
+  db
+    .collection("chats")
+    .add(chatData)
+    .then((docRef) => docRef.id);
