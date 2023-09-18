@@ -10,13 +10,14 @@ export const fetchChats = () => (dispatch) => {
   );
 };
 
-export const createChats = (formData, userId) => (dispatch) => {
-  console.log(formData);
-  console.log(userId);
-  const useRef = db.doc(`profiles/${userId}`);
-  const newChat = { ...formData, admin: useRef, joinedUsers: [useRef] };
+export const createChats = (formData, userId) => async (dispatch) => {
+  const newChat = { ...formData, admin: db.doc(`profiles/${userId}`) };
 
-  return api
-    .createChat(newChat)
-    .then((_) => dispatch({ type: "CHATS_CREATE_SUCCESS" }));
+  const chatId = await api.createChat(newChat);
+  dispatch({ type: "CHATS_CREATE_SUCCESS" });
+  await api.joinChat(userId, chatId);
+  dispatch({ type: "CHATS_JOIN_SUCCESS" });
+  return chatId;
 };
+
+// https://www.pinclipart.com/picdir/middle/133-1331433_free-user-avatar-icons-happy-flat-design-png.png
