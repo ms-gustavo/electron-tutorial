@@ -11,6 +11,7 @@ import StoreProvider from "./redux/store/StoreProvider";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
 import Welcome from "./views/Welcome";
+import ChatCreate from "./views/ChatCreate";
 import Chat from "./views/Chat";
 import LoadingView from "./components/shared/LoadingView";
 import { listenToConnectionChanges } from "./redux/actions/app";
@@ -67,6 +68,14 @@ function ChatApp() {
             element={
               <AuthRoute>
                 <Home />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/chatcreate"
+            element={
+              <AuthRoute>
+                <ChatCreate />
               </AuthRoute>
             }
           />

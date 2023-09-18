@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChats } from "../redux/actions/chats";
 import AvailableChatsList from "../components/AvailableChatsList";
@@ -30,7 +30,11 @@ function Home() {
         <JoinedChatsList chats={chats} />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text="Choose your channel" />
+        <ViewTitle text="Choose your channel">
+          <Link className="btn btn-outline-primary" to="/chatcreate">
+            New
+          </Link>
+        </ViewTitle>
         <AvailableChatsList chats={chats} />
       </div>
     </div>
