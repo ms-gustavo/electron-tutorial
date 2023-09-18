@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChats } from "../redux/actions/chats";
@@ -12,7 +12,12 @@ function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(({ auth }) => auth.user);
-  // const chats = useSelector(({ chats }) => chats.items);
+  const joinedChats = useSelector(({ chats }) => {
+    return chats.joined;
+  });
+  const availableChats = useSelector(({ chats }) => {
+    return chats.available;
+  });
   useEffect(() => {
     if (!user) {
       navigate("/");
@@ -27,7 +32,7 @@ function Home() {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <JoinedChatsList chats={[]} />
+        <JoinedChatsList chats={joinedChats} />
       </div>
       <div className="col-9 fh">
         <ViewTitle text="Choose your channel">
@@ -35,7 +40,7 @@ function Home() {
             New
           </Link>
         </ViewTitle>
-        <AvailableChatsList chats={[]} />
+        <AvailableChatsList chats={availableChats} />
       </div>
     </div>
   );
