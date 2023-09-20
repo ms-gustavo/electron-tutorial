@@ -10,6 +10,12 @@ import { subscribeToChat } from "../redux/actions/chats";
 function Chat() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const activeChat = useSelector(({ chats }) => {
+    console.log(chats);
+    console.log("chats.activeChats[id]", chats.activeChats[id]);
+    return chats.activeChats[id];
+  });
+  console.log("activeChat", activeChat);
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
