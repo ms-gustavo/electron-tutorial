@@ -10,12 +10,7 @@ import { subscribeToChat } from "../redux/actions/chats";
 function Chat() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const activeChat = useSelector(({ chats }) => {
-    console.log(chats);
-    console.log("chats.activeChats[id]", chats.activeChats[id]);
-    return chats.activeChats[id];
-  });
-  console.log("activeChat", activeChat);
+  const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
@@ -28,10 +23,10 @@ function Chat() {
   return (
     <div className="row no-gutters fh">
       <div className="col-3 fh">
-        <ChatUsersLists />
+        <ChatUsersLists users={activeChat?.joinedUsers || []} />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text={`Joined channel: ${id}`} />
+        <ViewTitle text={`Channel: ${activeChat?.name}`} />
         <ChatMessagesList />
       </div>
     </div>
