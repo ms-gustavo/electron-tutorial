@@ -57,7 +57,5 @@ export const subscribeToChat = (chatId) => (dispatch) =>
 
 export const subscribeToProfile = (uid) => (dispatch) =>
   api.subscribeToProfile(uid, (user) => {
-    console.log("changing profile");
-
     dispatch({ type: "CHATS_UPDATE_USER_STATE", user });
   });

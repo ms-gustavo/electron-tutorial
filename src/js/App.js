@@ -15,6 +15,7 @@ import ChatCreate from "./views/ChatCreate";
 import Chat from "./views/Chat";
 import LoadingView from "./components/shared/LoadingView";
 import { listenToConnectionChanges } from "./redux/actions/app";
+import { checkUserConnection } from "./redux/actions/connection";
 
 function AuthRoute({ children }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -34,10 +35,12 @@ function ChatApp() {
   useEffect(() => {
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
+    const unsubFromUserConnection = dispatch(checkUserConnection());
 
     return () => {
       unsubFromAuth();
       unsubFromConnection();
+      unsubFromUserConnection();
     };
   }, [dispatch]);
 
