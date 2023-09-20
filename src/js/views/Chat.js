@@ -5,12 +5,13 @@ import ChatUsersLists from "../components/ChatUsersList";
 import ViewTitle from "../components/shared/ViewTitle";
 import ChatMessagesList from "../components/ChatMessagesList";
 import { withBaseLayout } from "../layouts/Base";
-import { subscribeToChat } from "../redux/actions/chats";
+import { subscribeToChat, subscribeToProfile } from "../redux/actions/chats";
 
 function Chat() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
+  const joinedUsers = activeChat?.joinedUsers;
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
@@ -19,6 +20,18 @@ function Chat() {
       unsubFromChat();
     };
   }, []);
+
+  useEffect(() => {
+    joinedUsers && subscribeToJoinedUsers(joinedUsers);
+  }, [joinedUsers]);
+
+  const subscribeToJoinedUsers = (joinedUsers) => {
+    joinedUsers.forEach((user) => {
+      dispatch(subscribeToProfile(user.uid));
+    });
+  };
+
+  console.log("joinedUsers", joinedUsers);
 
   return (
     <div className="row no-gutters fh">
