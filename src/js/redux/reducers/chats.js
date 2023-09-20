@@ -30,12 +30,29 @@ function createChatReducer() {
     }
   };
   const setChatsActive = createAction("CHATS_SET_ACTIVE_CHAT");
+  const setUpdateUserState = createAction("CHATS_UPDATE_USER_STATE");
 
   const activeChats = createReducer({}, (builder) => {
     builder.addCase(setChatsActive, (state, action) => {
       const { chat } = action;
       state[chat.id] = chat;
-    });
+    }),
+      builder.addCase(setUpdateUserState, (state, action) => {
+        const { user, chatId } = action;
+        const joinedUsers = state[chatId].joinedUsers;
+        const index = joinedUsers.findIndex(
+          (jUsers) => jUsers.uid === user.uid
+        );
+
+        if (index < 0) {
+          return state;
+        }
+        if (joinedUsers[index].state === user.state) {
+          return state;
+        }
+
+        joinedUsers[index].state = user.state;
+      });
   });
 
   return combineReducers({

@@ -31,7 +31,7 @@ function Chat() {
     joinedUsers.forEach((user) => {
       if (!peopleWatchers.current[user.uid]) {
         peopleWatchers.current[user.uid] = dispatch(
-          subscribeToProfile(user.uid)
+          subscribeToProfile(user.uid, id)
         );
       }
     });
