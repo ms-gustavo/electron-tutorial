@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { subscribeToChat, subscribeToProfile } from "../redux/actions/chats";
+import {
+  subscribeToChat,
+  subscribeToProfile,
+  sendChatMessage,
+} from "../redux/actions/chats";
 import { withBaseLayout } from "../layouts/Base";
 import ChatUsersLists from "../components/ChatUsersList";
 import ViewTitle from "../components/shared/ViewTitle";
@@ -42,9 +46,12 @@ function Chat() {
     [dispatch, id]
   );
 
-  const sendMessage = (message) => {
-    alert(JSON.stringify(message));
-  };
+  const sendMessage = useCallback(
+    (message) => {
+      dispatch(sendChatMessage(message, id));
+    },
+    [id]
+  );
 
   const unsubFromJoinedUsers = useCallback(() => {
     Object.keys(peopleWatchers.current).forEach((id) =>
