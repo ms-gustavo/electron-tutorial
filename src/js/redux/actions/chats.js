@@ -1,9 +1,10 @@
 import * as api from "../../api/chats";
 import db from "../../db/firestore";
+import { types } from "../types";
 
 export const fetchChats = () => async (dispatch, getState) => {
   const { user } = getState().auth;
-  dispatch({ type: "CHATS_FETCH_INIT" });
+  dispatch({ type: types.CHATS_FETCH_INIT });
   const chats = await api.fetchChats();
 
   chats.forEach(
@@ -21,7 +22,7 @@ export const fetchChats = () => async (dispatch, getState) => {
   );
 
   dispatch({
-    type: "CHATS_FETCH_SUCCESS",
+    type: types.CHATS_FETCH_SUCCESS,
     ...sortedChats,
   });
 
@@ -29,16 +30,19 @@ export const fetchChats = () => async (dispatch, getState) => {
 };
 export const joinChats = (chat, userId) => (dispatch) =>
   api.joinChat(userId, chat.id).then((_) => {
-    dispatch({ type: "CHAT_JOIN_SUCCESS", chat });
+    dispatch({ type: types.CHAT_JOIN_SUCCESS, chat });
   });
 
 export const createChats = (formData, userId) => async (dispatch) => {
   const newChat = { ...formData, admin: db.doc(`profiles/${userId}`) };
 
   const chatId = await api.createChat(newChat);
-  dispatch({ type: "CHATS_CREATE_SUCCESS" });
+  dispatch({ type: types.CHATS_CREATE_SUCCESS });
   await api.joinChat(userId, chatId);
-  dispatch({ type: "CHATS_JOIN_SUCCESS", chat: { ...newChat, id: chatId } });
+  dispatch({
+    type: types.CHATS_JOIN_SUCCESS,
+    chat: { ...newChat, id: chatId },
+  });
   return chatId;
 };
 
@@ -52,10 +56,10 @@ export const subscribeToChat = (chatId) => (dispatch) =>
     );
     chat.joinedUsers = joinedUsers;
 
-    dispatch({ type: "CHATS_SET_ACTIVE_CHAT", chat });
+    dispatch({ type: types.CHATS_SET_ACTIVE_CHAT, chat });
   });
 
 export const subscribeToProfile = (uid, chatId) => (dispatch) =>
   api.subscribeToProfile(uid, (user) => {
-    dispatch({ type: "CHATS_UPDATE_USER_STATE", user, chatId });
+    dispatch({ type: types.CHATS_UPDATE_USER_STATE, user, chatId });
   });

@@ -1,11 +1,12 @@
 import { combineReducers } from "redux";
+import { types } from "../types";
 
 function createAppReducer() {
   const { onLine } = navigator;
   const isOnline = (state = onLine, action) => {
     switch (action.type) {
-      case "APP_IS_ONLINE":
-      case "APP_IS_OFFLINE":
+      case types.APP_IS_ONLINE:
+      case types.APP_IS_OFFLINE:
         return action.isOnline;
       default: {
         return state;
