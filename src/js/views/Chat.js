@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { subscribeToChat, subscribeToProfile } from "../redux/actions/chats";
+import { withBaseLayout } from "../layouts/Base";
 import ChatUsersLists from "../components/ChatUsersList";
 import ViewTitle from "../components/shared/ViewTitle";
 import ChatMessagesList from "../components/ChatMessagesList";
 import LoadingView from "../components/shared/LoadingView";
-import { withBaseLayout } from "../layouts/Base";
-import { subscribeToChat, subscribeToProfile } from "../redux/actions/chats";
+import Messenger from "../components/Messenger";
 
 function Chat() {
   const { id } = useParams();
@@ -41,6 +42,10 @@ function Chat() {
     [dispatch, id]
   );
 
+  const sendMessage = (message) => {
+    alert(message);
+  };
+
   const unsubFromJoinedUsers = useCallback(() => {
     Object.keys(peopleWatchers.current).forEach((id) =>
       peopleWatchers.current[id]()
@@ -59,6 +64,7 @@ function Chat() {
       <div className="col-9 fh">
         <ViewTitle text={`Channel: ${activeChat?.name}`} />
         <ChatMessagesList />
+        <Messenger onSubmit={sendMessage} />
       </div>
     </div>
   );
