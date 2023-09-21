@@ -19,6 +19,7 @@ function Chat() {
   const peopleWatchers = useRef({});
   const dispatch = useDispatch();
   const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
+  const messages = useSelector(({ chats }) => chats.messages[id]);
   const joinedUsers = activeChat?.joinedUsers;
 
   useEffect(() => {
@@ -71,7 +72,7 @@ function Chat() {
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`Channel: ${activeChat?.name}`} />
-        <ChatMessagesList />
+        <ChatMessagesList messages={messages} />
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>

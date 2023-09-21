@@ -2,6 +2,10 @@ import { combineReducers } from "redux";
 import { createAction, createReducer } from "@reduxjs/toolkit";
 import { types } from "../types";
 
+const setChatsActive = createAction(types.CHATS_SET_ACTIVE_CHAT);
+const setUpdateUserState = createAction(types.CHATS_UPDATE_USER_STATE);
+const setChatsMessages = createAction(types.CHATS_SET_MESSAGES);
+
 function createChatReducer() {
   const joined = (state = [], action) => {
     switch (action.type) {
@@ -30,8 +34,6 @@ function createChatReducer() {
       }
     }
   };
-  const setChatsActive = createAction(types.CHATS_SET_ACTIVE_CHAT);
-  const setUpdateUserState = createAction(types.CHATS_UPDATE_USER_STATE);
 
   const activeChats = createReducer({}, (builder) => {
     builder.addCase(setChatsActive, (state, action) => {
@@ -56,10 +58,18 @@ function createChatReducer() {
       });
   });
 
+  const messages = createReducer({}, (builder) => {
+    builder.addCase(setChatsMessages, (state, action) => {
+      const previousMessages = state[action.chatId] || [];
+      state[action.chatId] = [...previousMessages, ...action.messages];
+    });
+  });
+
   return combineReducers({
     joined,
     available,
     activeChats,
+    messages,
   });
 }
 

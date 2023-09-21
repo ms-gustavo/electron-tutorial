@@ -65,14 +65,13 @@ export const subscribeToProfile = (uid, chatId) => (dispatch) =>
   });
 
 export const subscribeToMessage = (chatId) => (dispatch) => {
-  return api.subscribeToMessages(chatId, (messages) => {
-    const chatMessages = messages.map((message) => {
-      if (message.type === "added")
-        return { id: message.doc.id, ...message.doc.data() };
+  return api.subscribeToMessages(chatId, (changes) => {
+    const messages = changes.map((change) => {
+      if (change.type === "added")
+        return { id: change.doc.id, ...change.doc.data() };
     });
 
-    dispatch({ type: types.CHATS_SET_MESSAGES, chatMessages, chatId });
-    return chatMessages;
+    return dispatch({ type: types.CHATS_SET_MESSAGES, messages, chatId });
   });
 };
 
