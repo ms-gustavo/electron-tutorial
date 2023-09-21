@@ -43,7 +43,7 @@ function Chat() {
   );
 
   const sendMessage = (message) => {
-    alert(message);
+    alert(JSON.stringify(message));
   };
 
   const unsubFromJoinedUsers = useCallback(() => {
