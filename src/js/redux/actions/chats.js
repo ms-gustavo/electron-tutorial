@@ -64,6 +64,18 @@ export const subscribeToProfile = (uid, chatId) => (dispatch) =>
     dispatch({ type: types.CHATS_UPDATE_USER_STATE, user, chatId });
   });
 
+export const subscribeToMessage = (chatId) => (dispatch) => {
+  return api.subscribeToMessages(chatId, (messages) => {
+    const chatMessages = messages.map((message) => {
+      if (message.type === "added")
+        return { id: message.doc.id, ...message.doc.data() };
+    });
+
+    dispatch({ type: types.CHATS_SET_MESSAGES, chatMessages, chatId });
+    return chatMessages;
+  });
+};
+
 export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
   const newMessage = { ...message };
   const { user } = getState().auth;

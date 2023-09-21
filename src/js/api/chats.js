@@ -40,6 +40,13 @@ export const subscribeToProfile = (uid, onSubscribe) =>
     .doc(uid)
     .onSnapshot((snapshot) => onSubscribe(snapshot.data()));
 
+export const subscribeToMessages = (chatId, onSubscribe) =>
+  db
+    .collection("chats")
+    .doc(chatId)
+    .collection("messages")
+    .onSnapshot((snapshot) => onSubscribe(snapshot.docChanges));
+
 export const sendChatMessage = (message, chatId) =>
   db
     .collection("chats")

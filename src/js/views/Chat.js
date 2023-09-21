@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   subscribeToChat,
   subscribeToProfile,
+  subscribeToMessage,
   sendChatMessage,
 } from "../redux/actions/chats";
 import { withBaseLayout } from "../layouts/Base";
@@ -22,7 +23,7 @@ function Chat() {
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
-
+    dispatch(subscribeToMessage(id));
     return () => {
       unsubFromChat();
       unsubFromJoinedUsers();
