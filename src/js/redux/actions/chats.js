@@ -101,3 +101,9 @@ export const sendChatMessage = (message, chatId) => (dispatch, getState) => {
     .sendChatMessage(newMessage, chatId)
     .then((_) => dispatch({ type: types.CHATS_MESSAGE_SENT }));
 };
+
+export const registerMessageSubscription = (chatId, messageSub) => ({
+  type: types.CHATS_REGISTER_MESSAGE_SUB,
+  sub: messageSub,
+  chatId,
+});

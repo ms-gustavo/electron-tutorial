@@ -6,6 +6,7 @@ import {
   subscribeToProfile,
   subscribeToMessage,
   sendChatMessage,
+  registerMessageSubscription,
 } from "../redux/actions/chats";
 import { withBaseLayout } from "../layouts/Base";
 import ChatUsersLists from "../components/ChatUsersList";
@@ -20,11 +21,15 @@ function Chat() {
   const dispatch = useDispatch();
   const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
   const messages = useSelector(({ chats }) => chats.messages[id]);
+  const messagesSub = useSelector(({ chats }) => chats.messagesSubs[id]);
   const joinedUsers = activeChat?.joinedUsers;
 
   useEffect(() => {
     const unsubFromChat = dispatch(subscribeToChat(id));
-    dispatch(subscribeToMessage(id));
+    if (!messagesSub) {
+      const unsubFromMessages = dispatch(subscribeToMessage(id));
+      dispatch(registerMessageSubscription(id, unsubFromMessages));
+    }
     return () => {
       unsubFromChat();
       unsubFromJoinedUsers();
