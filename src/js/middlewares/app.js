@@ -1,15 +1,21 @@
-import notifications from "../utils/notifications";
+import { types } from "../redux/types";
+import Notification from "../utils/notifications";
 
 export default (store) => (next) => (action) => {
-  const state = store.getState();
-
   switch (action.type) {
-    case "APP_IS_ONLINE":
-    case "APP_IS_OFFLINE": {
+    case types.APP_IS_ONLINE:
+    case types.APP_IS_OFFLINE: {
       Notification.show({
         title: `Connection status:`,
         body: action.isOnline ? `Online` : `Offline`,
       });
+    }
+    case types.AUTH_LOGOUT_SUCCESS: {
+      const { messagesSubs } = store.getState().chats;
+      if (messagesSubs)
+        Object.keys(messagesSubs).forEach((messageSub) =>
+          messagesSubs[messageSub]()
+        );
     }
   }
   next(action);
