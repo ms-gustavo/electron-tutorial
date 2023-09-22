@@ -71,7 +71,7 @@ function Chat() {
         <ChatUsersLists users={activeChat?.joinedUsers || []} />
       </div>
       <div className="col-9 fh">
-        <ViewTitle text={`Channel: ${activeChat?.name}`} />
+        <ViewTitle text={`${activeChat?.name}`} />
         <ChatMessagesList messages={messages} />
         <Messenger onSubmit={sendMessage} />
       </div>
