@@ -18,6 +18,7 @@ import Messenger from "../components/Messenger";
 function Chat() {
   const { id } = useParams();
   const peopleWatchers = useRef({});
+  const messageList = useRef();
   const dispatch = useDispatch();
   const activeChat = useSelector(({ chats }) => chats.activeChats[id]);
   const messages = useSelector(({ chats }) => chats.messages[id]);
@@ -55,7 +56,9 @@ function Chat() {
 
   const sendMessage = useCallback(
     (message) => {
-      dispatch(sendChatMessage(message, id));
+      dispatch(sendChatMessage(message, id)).then((_) =>
+        messageList.current.scrollIntoView(false)
+      );
     },
     [id]
   );
@@ -77,7 +80,7 @@ function Chat() {
       </div>
       <div className="col-9 fh">
         <ViewTitle text={`${activeChat?.name}`} />
-        <ChatMessagesList messages={messages} />
+        <ChatMessagesList messages={messages} innerRef={messageList} />
         <Messenger onSubmit={sendMessage} />
       </div>
     </div>
