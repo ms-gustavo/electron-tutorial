@@ -19,7 +19,12 @@ export default function initStore() {
 
   const rootReducer = (state, action) => {
     if (action.type === types.AUTH_LOGOUT_SUCCESS) {
-      state = undefined;
+      Object.keys(state).forEach((stateKey) => {
+        if (state[stateKey].savable) {
+          return;
+        }
+        state[stateKey] = undefined;
+      });
     }
 
     return mainReducer(state, action);

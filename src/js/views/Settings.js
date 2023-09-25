@@ -5,9 +5,7 @@ import { updateSettings } from "../redux/actions/settings";
 
 function Settings() {
   const dispatch = useDispatch();
-  const { isDarkTheme, showNotifications, playSound } = useSelector(
-    ({ settings }) => settings
-  );
+  const { isDarkTheme } = useSelector(({ settings }) => settings);
 
   const handleChange = ({ target: { checked, name } }) => {
     dispatch(updateSettings(name, checked));
@@ -30,28 +28,12 @@ function Settings() {
                 />
                 <label className="form-check-label">Dark Theme</label>
               </div>
-              <div className="form-check">
-                <input
-                  checked={showNotifications}
-                  onChange={handleChange}
-                  name="showNotifications"
-                  type="checkbox"
-                  className="form-check-input"
-                />
-                <label className="form-check-label">Enable Notification</label>
-              </div>
-              <div className="form-check">
-                <input
-                  checked={playSound}
-                  onChange={handleChange}
-                  name="playSound"
-                  type="checkbox"
-                  className="form-check-input"
-                />
-                <label className="form-check-label">Sound notification</label>
-              </div>
             </div>
-            <button type="button" onClick={() => {}} className="btn btn-danger">
+            <button
+              type="button"
+              onClick={() => electron.appApi.quitApp()}
+              className="btn btn-danger"
+            >
               Quit App
             </button>
           </div>
