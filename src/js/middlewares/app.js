@@ -17,6 +17,17 @@ export default (store) => (next) => (action) => {
           messagesSubs[messageSub]()
         );
     }
+    case types.SETTINGS_UPDATE: {
+      const { setting, value } = action;
+      const currentSettings = localStorage.getItem("app-settings");
+      const parsedCurrentSettings = currentSettings
+        ? JSON.parse(currentSettings)
+        : {};
+
+      const settings = { ...parsedCurrentSettings, [setting]: value };
+      const stringifiedSettings = JSON.stringify(settings);
+      localStorage.setItem("app-settings", stringifiedSettings);
+    }
   }
   next(action);
 };
