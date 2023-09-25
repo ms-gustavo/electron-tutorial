@@ -6,16 +6,17 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { listenToAuthChanges } from "./redux/actions/auth";
 import StoreProvider from "./redux/store/StoreProvider";
+import { listenToAuthChanges } from "./redux/actions/auth";
+import { listenToConnectionChanges } from "./redux/actions/app";
+import { checkUserConnection } from "./redux/actions/connection";
+import { loadInitialSettings } from "./redux/actions/settings";
 import Home from "./views/Home";
 import Settings from "./views/Settings";
 import Welcome from "./views/Welcome";
 import ChatCreate from "./views/ChatCreate";
 import Chat from "./views/Chat";
 import LoadingView from "./components/shared/LoadingView";
-import { listenToConnectionChanges } from "./redux/actions/app";
-import { checkUserConnection } from "./redux/actions/connection";
 
 function AuthRoute({ children }) {
   const user = useSelector(({ auth }) => auth.user);
@@ -34,6 +35,7 @@ function ChatApp() {
   const user = useSelector(({ auth }) => auth.user);
 
   useEffect(() => {
+    dispatch(loadInitialSettings());
     const unsubFromAuth = dispatch(listenToAuthChanges());
     const unsubFromConnection = dispatch(listenToConnectionChanges());
 
