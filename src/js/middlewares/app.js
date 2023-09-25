@@ -1,5 +1,6 @@
 import { types } from "../redux/types";
 import Notification from "../utils/notifications";
+import Storage from "../utils/storage";
 
 export default (store) => (next) => (action) => {
   switch (action.type) {
@@ -19,14 +20,10 @@ export default (store) => (next) => (action) => {
     }
     case types.SETTINGS_UPDATE: {
       const { setting, value } = action;
-      const currentSettings = localStorage.getItem("app-settings");
-      const parsedCurrentSettings = currentSettings
-        ? JSON.parse(currentSettings)
-        : {};
+      const currentSettings = Storage.getItem("app-settings");
 
-      const settings = { ...parsedCurrentSettings, [setting]: value };
-      const stringifiedSettings = JSON.stringify(settings);
-      localStorage.setItem("app-settings", stringifiedSettings);
+      const settings = { ...currentSettings, [setting]: value };
+      Storage.setItem("app-settings", settings);
     }
   }
   next(action);

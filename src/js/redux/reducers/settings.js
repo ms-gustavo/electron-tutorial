@@ -1,4 +1,5 @@
 import { types } from "../types";
+import Storage from "../../utils/storage";
 
 const INITIAL_STATE = {
   isDarkTheme: false,
@@ -11,9 +12,8 @@ export default function settingsReducer(state = INITIAL_STATE, action) {
     case types.SETTINGS_UPDATE:
       return { ...state, [action.setting]: action.value };
     case types.SETTINGS_INITIAL_LOAD:
-      const storedSettings = localStorage.getItem("app-settings");
-      const settings = storedSettings ? JSON.parse(storedSettings) : {};
-      return { ...state, ...settings };
+      const storedSettings = Storage.getItem("app-settings");
+      return { ...state, ...storedSettings };
     default:
       return state;
   }
