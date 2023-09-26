@@ -13,12 +13,14 @@ const isDev = !app.isPackaged;
 const dockIcon = path.join(__dirname, "assets", "images", "react_app_logo.png");
 const trayIcon = path.join(__dirname, "assets", "images", "react_icon.png");
 
-function createSecondWindow() {
+function createSplashWindow() {
   // BrowserWindow <-- Renderer Process
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 200,
     backgroundColor: "#6e707e",
+    frame: false,
+    transparent: true,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -26,7 +28,8 @@ function createSecondWindow() {
     },
   });
 
-  win.loadFile("second.html");
+  win.loadFile("splash.html");
+  return win;
 }
 
 function createWindow() {
@@ -35,6 +38,7 @@ function createWindow() {
     width: 800,
     height: 600,
     backgroundColor: "#6e707e",
+    show: false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -44,6 +48,7 @@ function createWindow() {
 
   win.loadFile("index.html");
   isDev && win.webContents.openDevTools();
+  return win;
 }
 if (isDev) {
   require("electron-reload")(__dirname, {
@@ -65,8 +70,17 @@ app.whenReady().then(() => {
   tray = new Tray(trayIcon);
   tray.setContextMenu(menu);
 
-  createWindow();
-  createSecondWindow();
+  const splash = createSplashWindow();
+  const mainApp = createWindow();
+
+  mainApp.once("ready-to-show", () => {
+    // splash.destroy();
+    // mainApp.show();
+    setTimeout(() => {
+      splash.destroy();
+      mainApp.show();
+    }, 3000);
+  });
 });
 
 ipcMain.on("notify", (_, message) => {
